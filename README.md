@@ -260,6 +260,24 @@ This ensures **safe memory loading** without bus contention.
 **Figure 15:** Manual/Loader control system architecture  
 
 
+## Future Improvement
+
+Potential directions for extending the current SAP-1 implementation include:
+
+**Status Flags:** Add Zero (Z) and Carry (C) flags to support conditional branch instructions (e.g., JZ, JC).  
+**Enhanced Memory & Instructions:** Support multi-byte addressing, immediate data loading, and richer instruction formats.  
+**Microcoded Control Unit:** Enable systematic ISA expansion for new operations like shift and rotate.  
+**Expanded Assembler:** Develop a symbolic assembler with labels, expressions, and enhanced directives to improve programmability and instructional clarity.
+
+## Conclusion
+
+The enhanced **SAP-1** bridges classical processor design with modern simulation-based education.  
+With **dual operational modes**, **expanded instruction support**, and a **structured control sequencer**, the system demonstrates technical correctness and pedagogical clarity.  
+Test programs validated proper execution, control logic, and timing coordination.  
+This project provides a **practical, extensible platform** for undergraduate learning in computer architecture and lays the foundation for future enhancements in processor design and research.
+
+
+
 
 
 
