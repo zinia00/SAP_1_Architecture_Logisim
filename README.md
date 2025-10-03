@@ -107,7 +107,7 @@ The **SRAM** operates in two modes:
 **Figure 7:** Memory subsystem showing MAR operation and SRAM read/write timing.  
 
 
-### 4.5 Instruction Register and Opcode Decoder
+### Instruction Register and Opcode Decoder
 
 The **Instruction Register (IR)** has a dual role for **instruction storage** and **operand handling**:
 
@@ -118,7 +118,21 @@ The **Instruction Register (IR)** has a dual role for **instruction storage** an
 The **opcode decoder (`ins_tab`)** implements a **4-to-16 decoding scheme**, producing one-hot signals such as `insLDA`, `insLDB`, `insADD`, `insSUB`, `insSTA`, `insJMP`, `insHLT`, with unused outputs reserved for future instructions.
 
 ![Instruction Register and Opcode Decoder](images/fig_7.png)
-**Figure 8:** Architecture of the Instruction Register and opcode decoder, showing instruction loading, opcode routing, and operand forwarding.  
+**Figure 8:** Architecture of the Instruction Register and opcode decoder, showing instruction loading, opcode routing, and operand forwarding.
+
+### Arithmetic Logic Unit (ALU) Implementation
+
+The **ALU subsystem** performs **8-bit arithmetic** with the following features:
+
+- **Input Sources:** Operands come directly from `A.reg_int_out` and `B.reg_int_out`, bypassing the bus.  
+- **Operation Control:** `alu_sub = 1` selects subtraction (`A − B`); otherwise, addition (`A + B`) is performed.  
+- **Execution Protocol:** During `T4`, with `a_out = 1`, `b_out = 1`, `alu_out = 1`, and `a_in = 1`, the ALU executes `A ← A ± B` in one step.  
+- **Architectural Design:** Ripple-carry adder with mode control; simple hardware with linear carry propagation delay.  
+- **Bus Interface:** ALU output drives the system bus only when `alu_out = 1` via tri-state logic.
+
+**Figure 9:** ALU implementation with ripple-carry architecture and tri-state bus interface.  
+![ALU Implementation](images/fig_7.png)
+
 
 
 
