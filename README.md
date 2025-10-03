@@ -32,20 +32,21 @@ Click on the Table of Contents below to directly go to the sections:
 - [Future Improvement](#future-improvement)
 - [Conclusion](#conclusion)
 
-
+- 
 
 ## Key Features
 
-- 8-bit Simple CPU Design: Implements the classic SAP-1 architecture with 8-bit data and address buses.
-- Manual and Automatic Operation Modes: Supports step-by-step execution for learning and full automatic execution for programs.
-- Register Set: Includes A and B registers for ALU operations and temporary data storage.
-- Program Counter (PC): Automatically increments to fetch the next instruction from memory.
-- Memory System: Contains ROM for program storage and an Address Register for memory access.
-- Instruction Register and Opcode Decoder: Separates instruction into opcode and operand, enabling ALU operations.
-- Arithmetic Logic Unit (ALU): Performs addition and subtraction operations on the accumulator.
-- Control Logic: Includes Timing Control Generator and phase-based operation sequencing.
-- Expandable Instruction Set: Supports basic operations like LDA, ADD, SUB, STA, OUT, and HLT.
-- Educational Tool: Designed for teaching CPU architecture, instruction cycles, and control logic in a visual environment like Logisim.
+- **8-bit CPU Architecture:** Implements the classic SAP-1 design with 8-bit data and address buses.  
+- **Manual & Automatic Modes:** Allows step-by-step instruction execution and fully automatic program run.  
+- **Register Set:** Includes **A and B registers** for ALU operations and temporary storage.  
+- **Program Counter (PC):** Automatically increments to fetch the next instruction from memory.  
+- **Memory System:** Combines **ROM for program storage** and an **Address Register** for accessing memory.  
+- **Instruction Register & Opcode Decoder:** Separates instructions into opcode and operand for proper ALU operations.  
+- **Arithmetic Logic Unit (ALU):** Performs **addition and subtraction** on the accumulator.  
+- **Control Logic:** Features **Timing Control Generator** and phase-based operation sequencing.  
+- **Expandable Instruction Set:** Supports basic instructions like **LDA, ADD, SUB, STA, OUT, HLT**.  
+- **Educational Tool:** Perfect for learning CPU architecture, instruction cycles, and control logic using **Logisim visualization**.
+
 
 
 
