@@ -444,10 +444,7 @@ Potential directions for extending the current SAP-1 implementation include:
 
 ## Conclusion
 
-The enhanced **SAP-1** bridges classical processor design with modern simulation-based education.  
-With **dual operational modes**, **expanded instruction support**, and a **structured control sequencer**, the system demonstrates technical correctness and pedagogical clarity.  
-Test programs validated proper execution, control logic, and timing coordination.  
-This project provides a **practical, extensible platform** for undergraduate learning in computer architecture and lays the foundation for future enhancements in processor design and research.
+The enhanced **SAP-1** bridges classical processor design with modern simulation-based education. With **dual operational modes**, **expanded instruction support**, and a **structured control sequencer**, the system demonstrates technical correctness and pedagogical clarity.  Test programs validated proper execution, control logic, and timing coordination. This project provides a **practical, extensible platform** for undergraduate learning in computer architecture and lays the foundation for future enhancements in processor design and research.
 
 
 
