@@ -49,11 +49,5 @@ Click on the Table of Contents below to directly go to the sections:
 
 
 
-**Figure 1:** Automatic mode operation of the control sequencer showing fetch–decode–execute sequencing.  
-![Automatic Mode Control Sequencer](./pic/manual_ckt.png)
-
-**Figure 2:** Manual/Loader mode operation of the control sequencer showing secure program loading with debug and handshake signals.  
-![Manual/Loader Mode Control Sequencer](./pic/auto_ckt.png)
-
 
 
