@@ -98,9 +98,11 @@ The **SRAM** operates in two modes:
 - **Write Mode:** When `sram_wr = 1`, the data on the bus is written into `RAM[MAR]` during `T5` of the `STA` instruction.
 
 ![Memory Element](images/fig_5.png)
+
 **Figure 6:** Register-based memory element showing `data_in`, `wr_en`, `rd_en`, clock, and chip select (`cs`) signals. Output to the bus is via `data_out`.  
 
 ![Memory Subsystem](images/fig_6.png)
+
 **Figure 7:** Memory subsystem showing MAR operation and SRAM read/write timing.  
 
 
