@@ -57,8 +57,8 @@ The processor architecture uses a **unified single-bus design** with an **8-bit 
 ![Automatic Mode Control Sequencer](images/automatic_ckt.png)
 **Figure 1:** Automatic mode operation of the control sequencer showing fetch–decode–execute sequencing.  
 
-**Figure 2:** Manual/Loader mode operation of the control sequencer showing secure program loading with debug and handshake signals.  
 ![Manual/Loader Mode Control Sequencer](images/manual_ckt.png)
+**Figure 2:** Manual/Loader mode operation of the control sequencer showing secure program loading with debug and handshake signals.  
 
 ### Register Implementation (A, B)
 
@@ -68,8 +68,8 @@ The **A and B registers** use `reg_gp` modules to store **8-bit data**. They hav
 2. **Output:** Drives the bus via tri-state logic using `a_out` and `b_out`.  
 3. **Internal:** Provides direct access to the **ALU** through `reg_int_out` without using the bus.
 
-**Figure 3:** A/B register subsystem with input, output, and internal interfaces.  
 ![A/B Register Subsystem](images/2_ins_reg_.png)
+**Figure 3:** A/B register subsystem with input, output, and internal interfaces.  
 
 ### Program Counter (PC) Implementation
 
@@ -79,12 +79,12 @@ The **Program Counter (PC)** supports **dual modes** for sequential execution an
 - **Jump Mode:** During a `JMP` instruction at timing state `T4`, when `jump_en = 1`, the lower nibble of the Instruction Register (IR) is placed on the bus and loaded into the PC for direct program control transfer.  
 
 **Bus Interface:** At timing state `T1`, when `pc_out = 1`, the current PC value is driven onto the system bus and loaded into the **Memory Address Register (MAR)** to start the instruction fetch cycle.
-
-**Figure 4:** Program Counter showing **increment and jump modes**.  
+ 
 ![Program Counter Increment/Jump](images/pc_a.png)
+**Figure 4:** Program Counter showing **increment and jump modes**. 
 
-**Figure 5:** Program Counter direct load and sequential functionality.  
 ![Program Counter Direct Load](images/pc_b.png)
+**Figure 5:** Program Counter direct load and sequential functionality. 
 
 ### Memory System and Address Register
 
@@ -97,11 +97,11 @@ The **SRAM** operates in two modes:
 - **Read Mode:** When `sram_rd = 1`, the value at `RAM[MAR]` is placed on the bus during `T2` (instruction fetch) and `T5` (LDA/LDB).  
 - **Write Mode:** When `sram_wr = 1`, the data on the bus is written into `RAM[MAR]` during `T5` of the `STA` instruction.
 
-**Figure 6:** Register-based memory element showing `data_in`, `wr_en`, `rd_en`, clock, and chip select (`cs`) signals. Output to the bus is via `data_out`.  
 ![Memory Element](images/fig_5.png)
+**Figure 6:** Register-based memory element showing `data_in`, `wr_en`, `rd_en`, clock, and chip select (`cs`) signals. Output to the bus is via `data_out`.  
 
-**Figure 7:** Memory subsystem showing MAR operation and SRAM read/write timing.  
 ![Memory Subsystem](images/fig_6.png)
+**Figure 7:** Memory subsystem showing MAR operation and SRAM read/write timing.  
 
 
 
