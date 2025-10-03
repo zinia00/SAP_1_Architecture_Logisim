@@ -86,6 +86,24 @@ The **Program Counter (PC)** supports **dual modes** for sequential execution an
 **Figure 5:** Program Counter direct load and sequential functionality.  
 ![Program Counter Direct Load](images/pc_b.png)
 
+### Memory System and Address Register
+
+The memory subsystem includes a **4-bit Memory Address Register (MAR)** which captures addresses from the system bus under the control of `mar_in_en`.
+
+- **Instruction Fetching:** During the `T1` phase, `pc_out` and `mar_in_en` load the Program Counter value into the MAR for instruction fetch.  
+- **Operand Addressing:** During `T4` of `LDA`, `LDB`, `STA`, or `JMP` instructions, `ins_reg_out_en` together with `mar_in_en` transfers the operand address (`IR[3:0]`) into the MAR.
+
+The **SRAM** operates in two modes:  
+- **Read Mode:** When `sram_rd = 1`, the value at `RAM[MAR]` is placed on the bus during `T2` (instruction fetch) and `T5` (LDA/LDB).  
+- **Write Mode:** When `sram_wr = 1`, the data on the bus is written into `RAM[MAR]` during `T5` of the `STA` instruction.
+
+**Figure 6:** Register-based memory element showing `data_in`, `wr_en`, `rd_en`, clock, and chip select (`cs`) signals. Output to the bus is via `data_out`.  
+![Memory Element](images/fig_5.png)
+
+**Figure 7:** Memory subsystem showing MAR operation and SRAM read/write timing.  
+![Memory Subsystem](images/fig_6.png)
+
+
 
 
 
