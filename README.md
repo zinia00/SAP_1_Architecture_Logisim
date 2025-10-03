@@ -49,9 +49,9 @@ Click on the Table of Contents below to directly go to the sections:
 
 
 
-## 4 Architecture and Functional Block Analysis
+## Architecture and Functional Block Analysis
 
-### 4.1 System Architecture Overview
+### System Architecture Overview
 The processor architecture uses a **unified single-bus design** with an **8-bit datapath** controlled by tri-state sources. Bus arbitration ensures that only **one driver** is active during each T-state, with possible drivers including `pc_out`, `sram_rd`, `ins_reg_out_en`, `a_out`, `b_out`, `alu_out`, and `sh_out`. Bus listener components such as `mar_in_en`, `ins_reg_in_en`, `a_in`, `b_in`, and `sram_wr` allow selective data capture when required.
 
 **Figure 1:** Automatic mode operation of the control sequencer showing fetch–decode–execute sequencing.  
