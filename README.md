@@ -303,7 +303,7 @@ This enables efficient program development, testing, and debugging of the SAP-1 
 
 #### SAP-1 Assembler Interface
 
-![SAP-1 Assembler](images/fig16.png)
+![SAP-1 Assembler](images/COMPLILER.png)
 
 Figure 16: Web-based SAP-1 assembler interface converting assembly instructions into Logisim-compatible hexadecimal code.
 
@@ -366,7 +366,7 @@ Continuous run: enable continuous clock.
 **Verify Result**  
 Check RAM[15] = 45 (0x2D), result of adding 20 and 25.  
 
-![SAP-1 CPU Circuit](images/fig17.png)
+![SAP-1 CPU Circuit](images/manual_op.png)
 
 Figure 17: SAP-1 CPU circuit implementation in Logisim Evolution.
 
@@ -413,22 +413,22 @@ RAM[15] = 45 (0x2D).
 
 ### SAP-1 CPU Execution (Automatic Mode)
 
-![After loading RAM](images/fig18.png)  
+![After loading RAM](images/auto_op_1.png)  
 Figure 18: After loading all instruction and data values into RAM.
 
-![After LDA 13](images/fig19.png)  
+![After LDA 13](images/auto_op_2.png)  
 Figure 19: Value 20 loaded from memory address 13 into Register A.
 
-![After LDB 14](images/fig20.png)  
+![After LDB 14](images/auto_op_3.png)  
 Figure 20: Value 25 loaded from memory address 14 into Register B.
 
-![After JMP 5](images/fig21.png)  
+![After JMP 5](images/auto_op_4.png)  
 Figure 21: PC updated to address 5, redirecting execution.
 
-![After ADD](images/fig22.png)  
+![After ADD](images/auto_op_5.png)  
 Figure 22: A + B executed, result (45) stored in Register A.
 
-![After STA 15](images/fig23.png)  
+![After STA 15](images/auto_op_6.png)  
 Figure 23: Result (45) stored into memory address 15.
 
 
