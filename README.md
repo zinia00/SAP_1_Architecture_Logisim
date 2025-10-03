@@ -1,4 +1,4 @@
-# SAP-1-Architecture-Logisim
+<img width="1438" height="392" alt="fig_7" src="https://github.com/user-attachments/assets/dbb95d76-43c9-4e46-bcbf-e66464b1b1dc" /># SAP-1-Architecture-Logisim
 ## Table of Contents
 Click on the Table of Contents below to directly go to the sections:
 
@@ -81,6 +81,7 @@ The **Program Counter (PC)** supports **dual modes** for sequential execution an
 **Bus Interface:** At timing state `T1`, when `pc_out = 1`, the current PC value is driven onto the system bus and loaded into the **Memory Address Register (MAR)** to start the instruction fetch cycle.
  
 ![Program Counter Increment/Jump](images/pc_a.png)
+
 **Figure 4:** Program Counter showing **increment and jump modes**. 
 
 ![Program Counter Direct Load](images/pc_b.png)
@@ -105,6 +106,19 @@ The **SRAM** operates in two modes:
 
 **Figure 7:** Memory subsystem showing MAR operation and SRAM read/write timing.  
 
+
+### 4.5 Instruction Register and Opcode Decoder
+
+The **Instruction Register (IR)** has a dual role for **instruction storage** and **operand handling**:
+
+1. **Instruction Loading:** During `T2`, signals `sram_rd = 1` and `ins_reg_in_en = 1` transfer `IR ← M[MAR]`, capturing the instruction from memory.  
+2. **Opcode Handling:** The upper nibble `IR[7:4]` goes to the **opcode decoder** (`ins_tab`), generating one-hot control signals for the decoded instruction.  
+3. **Operand Handling:** The lower nibble `IR[3:0]` can be placed onto the system bus when `ins_reg_out_en = 1` (typically during `T4`) to provide operand addresses or target values for memory and jump instructions.
+
+The **opcode decoder (`ins_tab`)** implements a **4-to-16 decoding scheme**, producing one-hot signals such as `insLDA`, `insLDB`, `insADD`, `insSUB`, `insSTA`, `insJMP`, `insHLT`, with unused outputs reserved for future instructions.
+
+![Instruction Register and Opcode Decoder](images/fig_7.png)
+**Figure 8:** Architecture of the Instruction Register and opcode decoder, showing instruction loading, opcode routing, and operand forwarding.  
 
 
 
