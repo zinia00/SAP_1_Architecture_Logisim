@@ -297,7 +297,7 @@ The tool automatically generates *Logisim-compatible v2.0 raw hex output*, avoid
 
 This enables efficient program development, testing, and debugging of the SAP-1 system.
 
-#### 🔗 [Open the SAP-1 Assembler Tool](https://htmlpreview.github.io/?https://github.com/zinia00/SAP_1_Architecture_Logisim/blob/main/SAP_1_Assembler_35.html)
+#### 🔗 [Open the SAP-1 Assembler Tool](https://htmlpreview.github.io/?https://github.com/zinia00/SAP_1_Architecture_Logisim/blob/main/Assembler_20.html)
 
 ---
 
