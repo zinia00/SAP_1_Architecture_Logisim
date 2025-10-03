@@ -131,7 +131,20 @@ The **ALU subsystem** performs **8-bit arithmetic** with the following features:
 - **Bus Interface:** ALU output drives the system bus only when `alu_out = 1` via tri-state logic.
 
 ![ALU Implementation](images/fig_8.png)
-**Figure 9:** ALU implementation with ripple-carry architecture and tri-state bus interface.  
+**Figure 9:** ALU implementation with ripple-carry architecture and tri-state bus interface. 
+
+
+### Boot/Loader Counter and Phase Generation
+
+The **boot/loader subsystem (`ins_loader`)** securely transfers program data from ROM to RAM in **Manual/Loader mode**:
+
+1. **Functional Role:** Loads programs from ROM to RAM when `debug = 1`, disabling normal fetch-execute logic.  
+2. **Input Interface:** Accepts `clk`, `bc_reset` (counter reset), `bc_en` (count enable), and `debug` for mode selection.  
+3. **Address Sequencing:** Uses a 4-bit `CTR4` counter for upward counting, producing addresses `bc_address[3:0]` for systematic RAM writes.  
+4. **Phase Control:** Generates two non-overlapping clock phases (`Φ` and `¬Φ`) via a D flip-flop with feedback inversion to synchronize data transfer and prevent contention.
+
+![Boot/Loader Subsystem](images/fig_9.png)
+**Figure 10:** Boot/loader subsystem with sequential address generation and dual-phase clocking.  
 
 
 
