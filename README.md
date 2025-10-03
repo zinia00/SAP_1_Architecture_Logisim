@@ -260,6 +260,179 @@ This ensures **safe memory loading** without bus contention.
 **Figure 15:** Manual/Loader control system architecture  
 
 
+## Instruction Set Architecture
+
+### Instruction Encoding Scheme
+The instruction encoding system utilizes *upper nibble = IR[7:4]* for opcode specification and *lower nibble* for 4-bit operand/address when required.
+
+---
+
+#### Table 1: Instruction Set & Program
+
+| Address   | Instruction | Hex | Mnemonic & Explanation        |
+|-----------|-------------|-----|--------------------------------|
+| 00001101  | 00011101    | 1D  | LDA 13 (Load A from M[13])     |
+| 00001110  | 00101110    | 2E  | LDB 14 (Load B from M[14])     |
+| 00010001  | 01100101    | 65  | JMP 5 (PC ← 5)                 |
+| 00001001  | 00110000    | 30  | ADD (A ← A + B)                |
+| 00001110  | 01011111    | 5F  | STA 15 (M[15] ← A)             |
+| 00001001  | 11110000    | F0  | HLT (Stop execution)           |
+
+---
+
+#### Table 2: Data Values in RAM
+
+| Address (Binary) | Data (Binary) | Decimal | Hex |
+|------------------|---------------|---------|-----|
+| 0000101          | 00010100      | 20      | 14  |
+| 0000110          | 00011001      | 25      | 19  |
+
+---
+
+### Assembler
+
+The assembler translates *SAP-1 assembly language programs* into *machine code (hexadecimal)* suitable for execution in Logisim.  
+It supports instructions such as *LDA, LDB, ADD, SUB, STA, JMP, and HLT*, along with directives like **ORG** and **DEC**.  
+The tool automatically generates *Logisim-compatible v2.0 raw hex output*, avoiding manual conversion errors.  
+
+This enables efficient program development, testing, and debugging of the SAP-1 system.
+
+#### 🔗 [Open the SAP-1 Assembler Tool](https://htmlpreview.github.io/?https://github.com/Maitri346/SAP-1-Architecture-Logisim/blob/main/SAP_1_Assembler_35.html)
+
+---
+
+#### SAP-1 Assembler Interface
+
+![SAP-1 Assembler](images/fig16.png)
+
+Figure 16: Web-based SAP-1 assembler interface converting assembly instructions into Logisim-compatible hexadecimal code.
+
+---
+
+#### Table 3: Examples of Assembly Programs and Corresponding Hex Codes
+
+| Example             | Assembly Code                                                                                   | Hex Code                                      |
+|---------------------|------------------------------------------------------------------------------------------------|-----------------------------------------------|
+| *ADD Program*       | LDA 13, LDB 14, ADD, STA 15, HLT <br> (ORG 13, DEC 20, ORG 14, DEC 25)                         | 1D 2E 30 5F F0 00 00 00 00 00 00 14 19 00 00  |
+| *JMP + ADD Program* | LDA 13, LDB 14, JMP 5, ADD, STA 15, HLT <br> (ORG 13, DEC 20, ORG 14, DEC 25)                  | 1D 2E 65 30 5F F0 00 00 00 00 00 00 14 19 00  |
+
+---
+
+## Operation
+
+The CPU functions through a repetitive sequence of operations controlled by the system clock, known as the *fetch–decode–execute* cycle.  
+
+### Fetch–Decode–Execute Cycle
+
+**Fetch**  
+T1: Program Counter (PC) outputs the current instruction address onto the bus, stored in MAR.  
+T2: Memory places the instruction on the bus, captured by IR.  
+T3: PC increments to point to the next instruction.  
+
+**Decode**  
+Opcode in IR is sent to the instruction decoder, which activates the corresponding control line.  
+Combined with the active timing state, this defines required control signals.  
+
+**Execute**  
+Control unit asserts relevant signals to carry out micro-operations.  
+Execution time varies by instruction (e.g., LDA requires 2 states, ADD requires 2, HLT requires 1).  
+The process repeats until HLT stops execution.  
+
+---
+
+### Running the CPU in Manual Mode
+
+**Initial Setup**  
+Debug pin OFF (LOW).  
+Pulse pc_reset once to reset PC.  
+Main clock OFF.  
+Set en_run HIGH.  
+
+**RAM Programming (Debug Mode)**  
+Turn ON debug pin (HIGH).  
+Set address using debug_data.  
+Pulse mar_in_en_manual to load MAR.  
+Set instruction/data on debug_data.  
+Pulse ram_wr_manual to write.  
+
+**After loading**  
+Turn debug pin OFF.  
+Pulse pc_reset again to reset PC.  
+
+**Run Program**  
+Manual stepping: press clk repeatedly.  
+Continuous run: enable continuous clock.  
+
+**Verify Result**  
+Check RAM[15] = 45 (0x2D), result of adding 20 and 25.  
+
+![SAP-1 CPU Circuit](images/fig17.png)
+
+Figure 17: SAP-1 CPU circuit implementation in Logisim Evolution.
+
+---
+
+### Running the CPU in Automatic Mode (JMP + ADD Program)
+
+**Step 1 – Initial Setup**  
+Debug pin LOW.  
+Main clock OFF.  
+Pulse pc_reset once.  
+
+**Step 2 – Program the ROM**  
+Edit ROM contents in Logisim.  
+Enter hex sequence:  
+1D 2E 65 00 30 5F F0 00 00 00 00 00 14 19 00 00  
+
+**Step 3 – Load to RAM (Bootloader Mode)**  
+Set debug pin HIGH.  
+Each clk pulse transfers program from ROM to RAM.  
+Observe MAR and Data Bus activity.  
+
+**Step 4 – Stop Bootloader**  
+Set debug pin LOW.  
+Pulse clk once.  
+
+**Step 5 – Run Program**  
+Pulse pc_reset to reset PC.  
+Provide clock pulses for execution.  
+Observe PC, MAR, IR, A, B registers.  
+
+**Step 6 – Execution Sequence**  
+LDA 13 → A = 20  
+LDB 14 → B = 25  
+JMP 5 → PC = 5  
+ADD → A = A + B = 45  
+STA 15 → M[15] = 45  
+HLT → Stop execution  
+
+**Step 7 – Verify Result**  
+RAM[15] = 45 (0x2D).  
+
+---
+
+### SAP-1 CPU Execution (Automatic Mode)
+
+![After loading RAM](images/fig18.png)  
+Figure 18: After loading all instruction and data values into RAM.
+
+![After LDA 13](images/fig19.png)  
+Figure 19: Value 20 loaded from memory address 13 into Register A.
+
+![After LDB 14](images/fig20.png)  
+Figure 20: Value 25 loaded from memory address 14 into Register B.
+
+![After JMP 5](images/fig21.png)  
+Figure 21: PC updated to address 5, redirecting execution.
+
+![After ADD](images/fig22.png)  
+Figure 22: A + B executed, result (45) stored in Register A.
+
+![After STA 15](images/fig23.png)  
+Figure 23: Result (45) stored into memory address 15.
+
+
+
 ## Future Improvement
 
 Potential directions for extending the current SAP-1 implementation include:
