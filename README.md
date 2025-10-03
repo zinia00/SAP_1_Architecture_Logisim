@@ -160,6 +160,7 @@ The **boot/loader subsystem (`ins_loader`)** securely transfers program data fro
 ![Boot/Loader Subsystem](images/fig_9.png)
 **Figure 10:** Boot/loader subsystem with sequential address generation and dual-phase clocking.  
 
+
 ## Control System Design
 
 The **control unit** translates instructions into precisely timed control pulses to:  
@@ -177,13 +178,13 @@ The control sequencer operates in two paradigms:
 
 Both modes maintain **strict signal integrity** and **timing synchronization**.
 
+![Manual Mode Control Sequencer](images/fig_10_manual.png)
 **Figure 11:** SAP-1 Manual Mode control sequencer  
-![Manual Mode Control Sequencer](images/fig10.png)
 
 The **Manual Mode** sequencer provides a simplified execution pathway, supporting only the ADD instruction for *step-wise verification* and *manual debugging*.  
-
-**Figure 12:** SAP-1 Automatic Mode control sequencer  
-![Automatic Mode Control Sequencer](images/fig11.png)
+ 
+![Automatic Mode Control Sequencer](images/fig_11_auto.png)
+**Figure 12:** SAP-1 Automatic Mode control sequencer 
 
 The **Automatic Mode** sequencer manages the full fetch–decode–execute cycle for ADD, SUB, and JMP instructions using **ring counter timing** combined with **opcode decoding**, ensuring **efficient bus utilization** and **precise timing**.
 
@@ -198,8 +199,8 @@ For every instruction:
 - **T2:** Memory read initiated (`sram_rd`) and IR loaded (IR ← M[MAR]).  
 - **T3:** PC incremented (PC ← PC + 1).
 
+![Timing Control Generator](images/fig_12_rc.png)
 **Figure 13:** Six-phase ring counter  
-![Timing Control Generator](images/fig12.png)
 
 ### Representative Execute Sequences
 
@@ -221,8 +222,8 @@ Automatic operation uses:
 
 These signals coordinate the fetch–decode–execute cycle for deterministic micro-operation execution.
 
+![Automatic Mode Control](images/automatic_ckt.png)
 **Figure 14:** Automatic Mode control sequencer  
-![Automatic Mode Control](images/fig11.png)
 
 **Fetch Control Equations**
 
@@ -255,8 +256,8 @@ Program transfer follows a **handshake protocol**:
 
 This ensures **safe memory loading** without bus contention.
 
+![Manual/Loader Control System](images/fig_14.png)
 **Figure 15:** Manual/Loader control system architecture  
-![Manual/Loader Control System](images/fig9.png)
 
 
 
