@@ -58,7 +58,7 @@ The processor architecture uses a **unified single-bus design** with an **8-bit 
 ![Automatic Mode Control Sequencer](images/manual_ckt.png)
 
 **Figure 2:** Manual/Loader mode operation of the control sequencer showing secure program loading with debug and handshake signals.  
-![Manual/Loader Mode Control Sequencer](images/auto_ckt.png)
+![Manual/Loader Mode Control Sequencer](images/automatic_ckt)
 
 
 
