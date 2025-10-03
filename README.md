@@ -71,6 +71,20 @@ The **A and B registers** use `reg_gp` modules to store **8-bit data**. They hav
 **Figure 3:** A/B register subsystem with input, output, and internal interfaces.  
 ![A/B Register Subsystem](images/2_ins_reg_.png)
 
+### Program Counter (PC) Implementation
+
+The **Program Counter (PC)** supports **dual modes** for sequential execution and program flow control:
+
+- **Increment Mode:** At timing state `T3`, when `pc_en = 1`, the PC updates as `PC ← PC + 1`, enabling sequential instruction progression.  
+- **Jump Mode:** During a `JMP` instruction at timing state `T4`, when `jump_en = 1`, the lower nibble of the Instruction Register (IR) is placed on the bus and loaded into the PC for direct program control transfer.  
+
+**Bus Interface:** At timing state `T1`, when `pc_out = 1`, the current PC value is driven onto the system bus and loaded into the **Memory Address Register (MAR)** to start the instruction fetch cycle.
+
+**Figure 4:** Program Counter showing **increment and jump modes**.  
+![Program Counter Increment/Jump](images/pc_a.png)
+
+**Figure 5:** Program Counter direct load and sequential functionality.  
+![Program Counter Direct Load](images/pc_b.png)
 
 
 
