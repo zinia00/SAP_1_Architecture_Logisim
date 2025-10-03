@@ -1,4 +1,4 @@
-<img width="1438" height="392" alt="fig_7" src="https://github.com/user-attachments/assets/dbb95d76-43c9-4e46-bcbf-e66464b1b1dc" /># SAP-1-Architecture-Logisim
+# SAP-1-Architecture-Logisim
 ## Table of Contents
 Click on the Table of Contents below to directly go to the sections:
 
@@ -130,8 +130,10 @@ The **ALU subsystem** performs **8-bit arithmetic** with the following features:
 - **Architectural Design:** Ripple-carry adder with mode control; simple hardware with linear carry propagation delay.  
 - **Bus Interface:** ALU output drives the system bus only when `alu_out = 1` via tri-state logic.
 
+![ALU Implementation](images/fig_8.png)
 **Figure 9:** ALU implementation with ripple-carry architecture and tri-state bus interface.  
-![ALU Implementation](images/fig_7.png)
+
+
 
 
 
