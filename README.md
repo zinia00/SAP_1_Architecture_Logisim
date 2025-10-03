@@ -60,6 +60,18 @@ The processor architecture uses a **unified single-bus design** with an **8-bit 
 **Figure 2:** Manual/Loader mode operation of the control sequencer showing secure program loading with debug and handshake signals.  
 ![Manual/Loader Mode Control Sequencer](images/manual_ckt.png)
 
+### Register Implementation (A, B)
+
+The **A and B registers** use `reg_gp` modules to store **8-bit data**. They have three interfaces:
+
+1. **Input:** Connected to the system bus; controlled by `a_in` and `b_in` signals.  
+2. **Output:** Drives the bus via tri-state logic using `a_out` and `b_out`.  
+3. **Internal:** Provides direct access to the **ALU** through `reg_int_out` without using the bus.
+
+**Figure 3:** A/B register subsystem with input, output, and internal interfaces.  
+![A/B Register Subsystem](images/2_ins_reg_.png)
+
+
 
 
 
