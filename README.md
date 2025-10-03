@@ -160,6 +160,103 @@ The **boot/loader subsystem (`ins_loader`)** securely transfers program data fro
 ![Boot/Loader Subsystem](images/fig_9.png)
 **Figure 10:** Boot/loader subsystem with sequential address generation and dual-phase clocking.  
 
+## Control System Design
+
+The **control unit** translates instructions into precisely timed control pulses to:  
+1. Ensure exclusive bus driver activation.  
+2. Enable appropriate latch operations during each T-state.  
+
+Key components include:  
+- **Ring Counter (RC):** Generates timing states T1–T6.  
+- **Opcode Decoder:** Produces activation lines for instruction-specific micro-operations.  
+- **Mode Control Inputs:** `debug` (manual/loader selection), `i1/i2` (loader handshake) defining CPU mode (~debug with loader masking via ~i2).  
+
+The control sequencer operates in two paradigms:  
+- **Automatic Execution Mode:** Optimized for fetch–decode–execute cycles.  
+- **Manual/Loader Mode:** Optimized for safe program loading and debugging.  
+
+Both modes maintain **strict signal integrity** and **timing synchronization**.
+
+**Figure 11:** SAP-1 Manual Mode control sequencer  
+![Manual Mode Control Sequencer](images/fig10.png)
+
+The **Manual Mode** sequencer provides a simplified execution pathway, supporting only the ADD instruction for *step-wise verification* and *manual debugging*.  
+
+**Figure 12:** SAP-1 Automatic Mode control sequencer  
+![Automatic Mode Control Sequencer](images/fig11.png)
+
+The **Automatic Mode** sequencer manages the full fetch–decode–execute cycle for ADD, SUB, and JMP instructions using **ring counter timing** combined with **opcode decoding**, ensuring **efficient bus utilization** and **precise timing**.
+
+## Timing Control Generator
+
+A **ring counter** generates six phases (T1–T6) to orchestrate the fetch–decode–execute cycle, ensuring deterministic micro-operation sequencing.
+
+### Universal Fetch Sequence
+
+For every instruction:  
+- **T1:** PC output enabled and captured by MAR (MAR ← PC).  
+- **T2:** Memory read initiated (`sram_rd`) and IR loaded (IR ← M[MAR]).  
+- **T3:** PC incremented (PC ← PC + 1).
+
+**Figure 13:** Six-phase ring counter  
+![Timing Control Generator](images/fig12.png)
+
+### Representative Execute Sequences
+
+- **LDA addr:**  
+  - T4: Operand address (IR[3:0]) placed on bus and loaded into MAR.  
+  - T5: Memory value read and latched into A (A ← M[MAR]).  
+- **ADD:**  
+  - T4: A and B outputs drive ALU; result fed back to A (`alu_sub = 0`).  
+- **SUB:**  
+  - T4: Similar to ADD with subtraction (`alu_sub = 1`).  
+- **JMP addr:**  
+  - T4: Operand placed on bus and loaded into PC (PC ← IR[3:0]).
+
+## Automatic Operation Control Logic
+
+Automatic operation uses:  
+- **C = CPU ~debug**  
+- **L = ~i2 (loader idle)**  
+
+These signals coordinate the fetch–decode–execute cycle for deterministic micro-operation execution.
+
+**Figure 14:** Automatic Mode control sequencer  
+![Automatic Mode Control](images/fig11.png)
+
+**Fetch Control Equations**
+
+| Signal          | Equation                                                       |
+|-----------------|----------------------------------------------------------------|
+| pc_out          | T1 & C                                                         |
+| mar_in_en       | (T1 & C) \| (T4 & C & (insLDA \| insLDB \| insSTA \| insJMP)) |
+| sram_rd         | (T2 & C) \| (T5 & C & (insLDA \| insLDB))                     |
+| ins_reg_in_en   | T2 & C                                                         |
+| pc_en           | T3 & C                                                         |
+
+**ALU and Register Control Equations**
+
+| Signal  | Equation                                              |
+|---------|------------------------------------------------------|
+| alu_out | T4 & C & (insADD \| insSUB)                          |
+| alu_sub | T4 & C & insSUB                                      |
+| a_in    | (T5 & C & insLDA) \| (T4 & C & (insADD \| insSUB))   |
+| b_in    | T5 & C & insLDB                                      |
+| a_out   | (T4 & C & (insADD \| insSUB)) \| (T5 & C & insSTA)   |
+| b_out   | T4 & C & (insADD \| insSUB)                          |
+
+## Manual/Loader Operation Control
+
+In **Manual/Loader Mode**, `debug = 1` masks normal CPU fetch–decode–execute operations.  
+
+Program transfer follows a **handshake protocol**:  
+- **i1:** Enables address placement into MAR.  
+- **i2:** Activates SRAM write operations.  
+
+This ensures **safe memory loading** without bus contention.
+
+**Figure 15:** Manual/Loader control system architecture  
+![Manual/Loader Control System](images/fig9.png)
 
 
 
