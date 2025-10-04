@@ -32,6 +32,14 @@ Click on the Table of Contents below to directly go to the sections:
 - [Future Improvement](#future-improvement)
 - [Conclusion](#conclusion)
 
+##  Video Tutorial
+Watch the complete demonstration of the **SAP-1 CPU with Control Sequencer (Manual and Automatic Modes)** implemented in **Logisim Evolution**.  
+Click the image below to watch the video on YouTube:
+
+[![SAP-1 CPU Tutorial](https://img.youtube.com/vi/_WnzsczYcdg/0.jpg)](https://youtu.be/_WnzsczYcdg)
+
+
+
 ## Project Overview
 
 This project implements an **enhanced 8-bit SAP-1 computer** in **Logisim Evolution** with **hardwired control** and an extended instruction set (`LDA`, `LDB`, `ADD`, `SUB`, `STA`, `JMP`, `HLT`).  
