@@ -1,7 +1,7 @@
 # SAP-1-Architecture-Logisim
 ## Table of Contents
 Click on the Table of Contents below to directly go to the sections:
-
+- [Video Tutorial](#Video-Tutorial)
 - [Project Overview](#project-overview)
 - [Objectives](#objectives)
 - [Key Features](#key-features)
